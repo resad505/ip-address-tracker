@@ -9,18 +9,41 @@
   <title>Frontend Mentor | IP Address Tracker</title>
 </head>
 
-<body>
-
-  IP Address Tracker
-
-  Search for any IP address or domain
-
-  IP Address
-  Location
-  Timezone
-  UTC <!-- add offset value dynamically using the API -->
-  ISP
-
+<body class="bg-[url('../images/pattern-bg-mobile.png')] bg-no-repeat bg-cover">
+  <main>
+    <header>
+      <h1>IP Address Tracker</h1>
+      <form action="" role="search">
+        <div class="flex justify-center items-center flex-row rounded-md border-2 ">
+          <input id="formInput" aria-label="Search for any IP address or domain" type="text"
+            placeholder="Search for any IP address or domain">
+          <button type="submit" id="submitBtn" class="bg-black" aria-label="search">
+            <img src="./images/icon-arrow.svg" alt="" aria-hidden="true">
+          </button>
+        </div>
+        <p id="errorMsg" class="hidden" role="alert"></p>
+      </form>
+    </header>
+    <section class="flex flex-col items-center justify-center" aria-label="IP address details" aria-live="polite">
+      <div>
+        <h2>IP Address</h2>
+        <span id="ipAddress"></span>
+      </div>
+      <div>
+        <h2>Location</h2>
+        <span id="location"></span>
+      </div>
+      <div>
+        <h2>Timezone</h2>
+        <span id="timezone"></span>
+      </div>
+      <div>
+        <h2>ISP</h2>
+        <span id="isp"></span>
+      </div>
+    </section>
+    <div id="map" aria-label="Location map"></div>
+  </main>
   <footer class="hidden">
     Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>.
     Coded by <a href="#">Reshad Mammedov</a>.
