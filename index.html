@@ -4,6 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="IP Address Tracker - Track any IP address or domain location on an interactive map.">
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
   <link href="./src/output.css" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,11 +26,11 @@
         <div
           class="flex justify-center items-center flex-row rounded-md border-1 w-11/12 max-w-lg mx-auto  overflow-hidden">
           <input id="formInput" aria-label="Search for any IP address or domain"
-            class="px-5 py-3 md:text-base outline-none bg-white flex-1 text-lg" type="text"
-            placeholder="Search for any IP address or domain">
+            class="px-5 py-3 md:text-base outline-none bg-white flex-1 text-lg focus:ring-2 focus:ring-gray-950"
+            type="text" placeholder="Search for any IP address or domain">
           <button type="submit" id="submitBtn"
-            class="bg-black  flex items-center justify-center cursor-pointer hover:bg-gray-800 transition-colors w-14 self-stretch"
-            aria-label=" search">
+            class="bg-black  flex items-center justify-center cursor-pointer hover:bg-gray-800 transition-colors w-14 self-stretch focus-visible:ring-gray-950 focus-visible:outline-none"
+            aria-label="search">
             <img src="./images/icon-arrow.svg" alt="" aria-hidden="true">
           </button>
         </div>
