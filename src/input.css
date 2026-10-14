@@ -5,3 +5,7 @@
     --color-gray-950: hsl(0, 0%, 17%);
     --color-gray-400: hsl(0, 0%, 58%);
 }
+
+.leaflet-control-attribution a {
+    text-decoration: underline;
+}

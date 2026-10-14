@@ -205,9 +205,6 @@
   .inset-x-0 {
     inset-inline: 0px;
   }
-  .top-0 {
-    top: 0px;
-  }
   .top-52 {
     top: calc(var(--spacing) * 52);
   }
@@ -244,17 +241,8 @@
   .min-h-\[250px\] {
     min-height: 250px;
   }
-  .min-h-\[400px\] {
-    min-height: 400px;
-  }
-  .min-h-\[450px\] {
-    min-height: 450px;
-  }
   .min-h-screen {
     min-height: 100vh;
-  }
-  .w-11 {
-    width: calc(var(--spacing) * 11);
   }
   .w-11\/12 {
     width: calc(11 / 12 * 100%);
@@ -274,17 +262,11 @@
   .flex-1 {
     flex: 1;
   }
-  .border-collapse {
-    border-collapse: collapse;
-  }
   .cursor-not-allowed {
     cursor: not-allowed;
   }
   .cursor-pointer {
     cursor: pointer;
-  }
-  .resize {
-    resize: both;
   }
   .flex-col {
     flex-direction: column;
@@ -396,9 +378,6 @@
   .uppercase {
     text-transform: uppercase;
   }
-  .underline {
-    text-decoration-line: underline;
-  }
   .opacity-50 {
     opacity: 50%;
   }
@@ -453,9 +432,6 @@
     }
     .md\:min-h-\[450px\] {
       min-height: 450px;
-    }
-    .md\:min-h-\[500px\] {
-      min-height: 500px;
     }
     .md\:flex-1 {
       flex: 1;
@@ -521,6 +497,9 @@
       line-height: var(--tw-leading, var(--text-xs--line-height));
     }
   }
+}
+.leaflet-control-attribution a {
+  text-decoration: underline;
 }
 @property --tw-border-style {
   syntax: "*";

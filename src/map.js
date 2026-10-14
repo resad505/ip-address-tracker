@@ -9,7 +9,7 @@ const customIcon = L.icon({
     iconSize: [46, 56],
     iconAnchor: [23, 56]
 })
-const marker = L.marker([52.52, 13.405], { icon: customIcon }).addTo(map);
+const marker = L.marker([52.52, 13.405], { icon: customIcon, interactive: false }).addTo(map);
 function updateMap(newLat, newLng) {
     map.flyTo([newLat, newLng], 13)
     marker.setLatLng([newLat, newLng])

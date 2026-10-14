@@ -1,5 +1,4 @@
 const apiKey = 'at_MpGM6IdjkYn5DTOBCIDBnJm6dwRjV'
-
 async function fetchIpDetails(searchTerm = '') {
     submitBtn.disabled = true
     submitBtn.classList.add('opacity-50', 'cursor-not-allowed')
