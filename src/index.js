@@ -31,4 +31,3 @@ searchForm.addEventListener('submit', (e) => {
         fetchIpDetails(query)
     }
 })
-const apiKey = 'at_MpGM6IdjkYn5DTOBCIDBnJm6dwRjV'
