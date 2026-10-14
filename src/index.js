@@ -1,7 +1,13 @@
-const ipAddressEl = document.getElementById('ipAddress');
-const locationEl = document.getElementById('location');
-const timezoneEl = document.getElementById('timezone');
-const ispEl = document.getElementById('isp');
+const ipAddressEl = document.querySelector('#ipAddress')
+const locationEl = document.querySelector('#location')
+const timezoneEl = document.querySelector('#timezone')
+const ispEl = document.querySelector('#isp')
+const searchForm = document.querySelector('#searchForm')
+const formInput = document.querySelector("#formInput")
+const ErrorMsg = document.querySelector("#errorMsg")
+const submitBtn = document.querySelector('#submitBtn')
+const ipRegex = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/
+const domainRegex = /^[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9]?\.[a-zA-Z]{2,}$/
 const map = L.map('map', { zoomControl: false }).setView([52.52, 13.405], 13)
 let lat = 52.52;
 let lng = 13.405
@@ -20,11 +26,42 @@ function updateMap(newLat, newLng) {
     map.flyTo([newLat, newLng], 13)
     marker.setLatLng([newLat, newLng])
 }
+function showError(errorEl, message) {
+    errorEl.textContent = message
+    errorEl.classList.remove('hidden')
+    setTimeout(() => {
+        errorEl.classList.add('hidden')
+    }, 5000)
+}
+searchForm.addEventListener('submit', (e) => {
+    e.preventDefault()
+    const query = formInput.value.trim()
+    if (query === "") {
+        showError(ErrorMsg, "Please enter an IP address or domain")
+    }
+    else if (!ipRegex.test(query) && !domainRegex.test(query)) {
+        showError(ErrorMsg, "Please enter a valid IP address or domain")
+    }
+    else {
+        ErrorMsg.classList.add("hidden")
+        fetchIpDetails(query)
+    }
+})
 const apiKey = 'at_MpGM6IdjkYn5DTOBCIDBnJm6dwRjV'
-const url = `https://geo.ipify.org/api/v2/country,city?apiKey=${apiKey}`;
-async function fetchIpDetails() {
+async function fetchIpDetails(searchTerm = '') {
+    submitBtn.disabled = true
+    submitBtn.classList.add('opacity-50')
+    let queryParam = ''
+    if (searchTerm) {
+        if (ipRegex.test(searchTerm)) {
+            queryParam = `&ipAddress=${searchTerm}`
+        } else {
+            queryParam = `&domain=${searchTerm}`
+        }
+    }
+    const requestUrl = `https://geo.ipify.org/api/v2/country,city?apiKey=${apiKey}${queryParam}`
     try {
-        const response = await fetch(url);
+        const response = await fetch(requestUrl);
         if (!response.ok) {
             throw new Error('API request was failed')
         }
@@ -40,6 +77,10 @@ async function fetchIpDetails() {
 
     } catch (error) {
         console.error("Error fetching IP details", error)
+        showError(ErrorMsg, "Could not find location for this IP/domain.");
+    } finally {
+        submitBtn.disabled = false
+        submitBtn.classList.remove('opacity-50', "cursor-not-allowed")
     }
 }
 
