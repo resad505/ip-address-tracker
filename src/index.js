@@ -9,8 +9,6 @@ const submitBtn = document.querySelector('#submitBtn')
 const ipRegex = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/
 const domainRegex = /^[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9]?\.[a-zA-Z]{2,}$/
 const map = L.map('map', { zoomControl: false }).setView([52.52, 13.405], 13)
-let lat = 52.52;
-let lng = 13.405
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; OpenStreetMap'
@@ -21,7 +19,7 @@ const customIcon = L.icon({
     iconSize: [46, 56],
     iconAnchor: [23, 56]
 })
-const marker = L.marker([lat, lng], { icon: customIcon }).addTo(map);
+const marker = L.marker([52.52, 13.405], { icon: customIcon }).addTo(map);
 function updateMap(newLat, newLng) {
     map.flyTo([newLat, newLng], 13)
     marker.setLatLng([newLat, newLng])
@@ -71,10 +69,7 @@ async function fetchIpDetails(searchTerm = '') {
         locationEl.textContent = [city, region, postalCode].filter(Boolean).join(', ');
         timezoneEl.textContent = `UTC ${data.location.timezone}`
         ispEl.textContent = data.isp
-        lat = data.location.lat
-        lng = data.location.lng
-        updateMap(lat, lng)
-
+        updateMap(data.location.lat, data.location.lng);
     } catch (error) {
         console.error("Error fetching IP details", error)
         showError(ErrorMsg, "Could not find location for this IP/domain.");
