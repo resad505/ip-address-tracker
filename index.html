@@ -24,12 +24,12 @@
       <h1 class="text-white text-2xl md:text-3xl font-bold mb-6">IP Address Tracker</h1>
       <form action="" role="search" id="searchForm" class="flex flex-col justify-center items-center ">
         <div
-          class="flex justify-center items-center flex-row rounded-md border-1 w-11/12 max-w-lg mx-auto  overflow-hidden">
+          class="flex justify-center items-center flex-row rounded-md border w-11/12 max-w-lg mx-auto  overflow-hidden">
           <input id="formInput" aria-label="Search for any IP address or domain"
             class="px-5 py-3 md:text-base outline-none bg-white flex-1 text-lg focus:ring-2 focus:ring-gray-950"
             type="text" placeholder="Search for any IP address or domain">
           <button type="submit" id="submitBtn"
-            class="bg-black  flex items-center justify-center cursor-pointer hover:bg-gray-800 transition-colors w-14 self-stretch focus-visible:ring-gray-950 focus-visible:outline-none"
+            class="bg-black  flex items-center justify-center cursor-pointer hover:bg-gray-800 transition-colors w-14 self-stretch focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:outline-none"
             aria-label="search">
             <img src="./images/icon-arrow.svg" alt="" aria-hidden="true">
           </button>
@@ -69,7 +69,9 @@
   </footer>
   <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="./src/map.js" defer></script>
   <script src="./src/index.js" defer></script>
+  <script src="./src/api.js" defer></script>
 </body>
 
 </html>
