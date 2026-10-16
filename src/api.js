@@ -1,4 +1,3 @@
-const apiKey = 'at_MpGM6IdjkYn5DTOBCIDBnJm6dwRjV'
 async function fetchIpDetails(searchTerm = '') {
     submitBtn.disabled = true
     submitBtn.classList.add('opacity-50', 'cursor-not-allowed')
@@ -8,13 +7,13 @@ async function fetchIpDetails(searchTerm = '') {
     ispEl.textContent = 'Loading...'
     let queryParam = ''
     if (searchTerm) {
-        if (ipRegex.test(searchTerm)) {
-            queryParam = `&ipAddress=${searchTerm}`
+        if (IPv4.test(searchTerm) || IPv6.test(searchTerm)) {
+            queryParam = `?ipAddress=${searchTerm}`
         } else {
-            queryParam = `&domain=${searchTerm}`
+            queryParam = `?domain=${searchTerm}`
         }
     }
-    const requestUrl = `https://geo.ipify.org/api/v2/country,city?apiKey=${apiKey}${queryParam}`
+    const requestUrl = `/api/lookup${queryParam}`
     try {
         const response = await fetch(requestUrl);
         if (!response.ok) {
@@ -27,6 +26,7 @@ async function fetchIpDetails(searchTerm = '') {
         timezoneEl.textContent = `UTC ${data.location.timezone}`
         ispEl.textContent = data.isp
         updateMap(data.location.lat, data.location.lng);
+        document.querySelector('#statusMsg').textContent = `Showing details for ${data.ip}, located in ${city}, ${region}.`
     } catch (error) {
         console.error("Error fetching IP details", error)
         showError(errorMsgEl, "Could not find location for this IP/domain.");

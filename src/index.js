@@ -6,16 +6,13 @@ const searchForm = document.querySelector('#searchForm')
 const formInput = document.querySelector("#formInput")
 const errorMsgEl = document.querySelector("#errorMsg")
 const submitBtn = document.querySelector('#submitBtn')
-const ipRegex = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/
-const domainRegex = /^[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9]?\.[a-zA-Z]{2,}$/
+const IPv4 = /^(?:(?:25[0-5]|2[0-4]\d|1?\d?\d)\.){3}(?:25[0-5]|2[0-4]\d|1?\d?\d)$/
+const IPv6 = /^((([0-9A-Fa-f]{1,4}:){1,6}:)|(([0-9A-Fa-f]{1,4}:){7}))([0-9A-Fa-f]{1,4})$/
+const domainRegex = /^(?=.{1,253}$)(?:[a-z\d](?:[a-z\d-]{0,61}[a-z\d])?\.)+[a-z]{2,}$/i
 let errorTimeoutId = null
 function showError(errorEl, message) {
-    clearTimeout(errorTimeoutId)
     errorEl.textContent = message
     errorEl.classList.remove('hidden')
-    errorTimeoutId = setTimeout(() => {
-        errorEl.classList.add('hidden')
-    }, 5000)
 }
 searchForm.addEventListener('submit', (e) => {
     e.preventDefault()
@@ -23,7 +20,7 @@ searchForm.addEventListener('submit', (e) => {
     if (query === "") {
         showError(errorMsgEl, "Please enter an IP address or domain")
     }
-    else if (!ipRegex.test(query) && !domainRegex.test(query)) {
+    else if (!IPv4.test(query) && !IPv6.test(query) && !domainRegex.test(query)) {
         showError(errorMsgEl, "Please enter a valid IP address or domain")
     }
     else {
@@ -31,3 +28,7 @@ searchForm.addEventListener('submit', (e) => {
         fetchIpDetails(query)
     }
 })
+formInput.addEventListener('input', () => {
+    errorMsgEl.classList.add('hidden')
+})
+
