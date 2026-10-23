@@ -28,11 +28,16 @@ searchForm.addEventListener('submit', async (e) => {
     else {
         errorMsgEl.classList.add("hidden");
         const paramType = (IPv4.test(query) || IPv6.test(query)) ? 'ipAddress' : 'domain';
+        submitBtn.disabled = true;
+        submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
         try {
             const data = await fetchIpDetails(query, paramType);
             renderData(data);
         } catch (error) {
             showError(errorMsgEl, "Could not find location for this IP/domain.");
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
         }
     }
 
@@ -45,6 +50,7 @@ function renderData(data) {
     locationEl.textContent = [city, region, postalCode].filter(Boolean).join(', ');
     timezoneEl.textContent = `UTC ${data.location.timezone}`;
     ispEl.textContent = data.isp;
+    document.querySelector('#statusMsg').textContent = `Showing details for ${data.ip}, located in ${city}, ${region}.`;
 }
 
 formInput.addEventListener('input', () => {
