@@ -1,3 +1,5 @@
+import { updateMap } from './map.js';
+import { fetchIpDetails } from './api.js';
 const ipAddressEl = document.querySelector('#ipAddress')
 const locationEl = document.querySelector('#location')
 const timezoneEl = document.querySelector('#timezone')
@@ -14,7 +16,7 @@ function showError(errorEl, message) {
     errorEl.textContent = message
     errorEl.classList.remove('hidden')
 }
-searchForm.addEventListener('submit', (e) => {
+searchForm.addEventListener('submit', async (e) => {
     e.preventDefault()
     const query = formInput.value.trim()
     if (query === "") {
@@ -24,11 +26,37 @@ searchForm.addEventListener('submit', (e) => {
         showError(errorMsgEl, "Please enter a valid IP address or domain")
     }
     else {
-        errorMsgEl.classList.add("hidden")
-        fetchIpDetails(query)
+        errorMsgEl.classList.add("hidden");
+        const paramType = (IPv4.test(query) || IPv6.test(query)) ? 'ipAddress' : 'domain';
+        try {
+            const data = await fetchIpDetails(query, paramType);
+            renderData(data);
+        } catch (error) {
+            showError(errorMsgEl, "Could not find location for this IP/domain.");
+        }
     }
+
+
 })
+function renderData(data) {
+    ipAddressEl.textContent = data.ip;
+    updateMap(data.location.lat, data.location.lng);
+    const { city, region, postalCode } = data.location;
+    locationEl.textContent = [city, region, postalCode].filter(Boolean).join(', ');
+    timezoneEl.textContent = `UTC ${data.location.timezone}`;
+    ispEl.textContent = data.isp;
+}
+
 formInput.addEventListener('input', () => {
     errorMsgEl.classList.add('hidden')
 })
+async function init() {
+    try {
+        const data = await fetchIpDetails();
+        renderData(data);
+    } catch (error) {
+        showError(errorMsgEl, "Could not load initial IP details.");
+    }
+}
 
+init();
